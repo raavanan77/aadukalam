@@ -1,0 +1,7 @@
+<ul class="comments">
+    {% for c in comments %}
+        <li class="{% if c.user == request.user %}mine{% endif %}">
+            <b>{{ c.user.username }}</b>: {{ c.text }}
+        </li>
+    {% endfor %}
+</ul>

@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Your Pickems</h2>
+
+{% if picks %}
+
+<table class="group-table">
+    <tr>
+        <th>Group</th>
+        <th>Team</th>
+    </tr>
+
+    
+    <tr>
+        <td>A</td>
+        <td>{{ picks.group_A.name }}</td>
+    </tr>
+    <tr>
+        <td>B</td>
+        <td>{{ picks.group_B.name }}</td>
+    </tr>
+    <tr>
+        <td>C</td>
+        <td>{{ picks.group_C.name }}</td>
+    </tr>
+    <tr>
+        <td>D</td>
+        <td>{{ picks.group_D.name }}</td>
+    </tr>
+    <tr>
+        <td>E</td>
+        <td>{{ picks.group_E.name }}</td>
+    </tr>
+    <tr>
+        <td>F</td>
+        <td>{{ picks.group_F.name }}</td>
+    </tr>
+    <tr>
+        <td>G</td>
+        <td>{{ picks.group_G.name }}</td>
+    </tr>
+    <tr>
+        <td>H</td>
+        <td>{{ picks.group_H.name }}</td>
+    </tr>
+    <tr>
+        <td>I</td>
+        <td>{{ picks.group_I.name }}</td>
+    </tr>
+    <tr>
+        <td>J</td>
+        <td>{{ picks.group_J.name }}</td>
+    </tr>
+    <tr>
+        <td>K</td>
+        <td>{{ picks.group_K.name }}</td>
+    </tr>
+    <tr>
+        <td>L</td>
+        <td>{{ picks.group_L.name }}</td>
+    </tr>
+    <tr>
+        <td style="background-color: #3b5998; color: white; font-weight: bold;">Total</td>
+        <td style="background-color: #3b5998; color: white; font-weight: bold;">{{ total }}</td>
+    </tr>
+</table>
+
+{% else %}
+<p>No picks yet</p>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="header">
+    <h2>Home</h2>
+
+    {% if request.user.is_authenticated %}
+        <a href="/logout" class="logout">Logout</a>
+    {% endif %}
+</div>
+
+<div class="card">
+    <h3>⚽ Recent Matches</h3>
+
+    <div class="matches-grid">
+
+        {% for m in matches %}
+            <a href="/matches/{{ m.id }}" class="card-link">
+                <div class="card">
+
+                    <b>{{ m.home_team }} vs {{ m.away_team }}</b><br>
+
+                    {% if m.home_score is not None %}
+                        {{ m.home_score }} - {{ m.away_score }}
+                    {% else %}
+                        Upcoming
+                    {% endif %}
+
+                    <br>
+                    {{ m.date|date:"d M H:i" }} ({{ m.stage }})
+
+                </div>
+            </a>
+
+        {% empty %}
+            <p>No matches available</p>
+        {% endfor %}
+
+    </div>
+</div>
+
+{% endblock %}

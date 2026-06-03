@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Game Rules ⚽</h2>
+
+<div style="font-size: 14px; line-height: 1.6; color: #333;">
+
+    <h3>Objective</h3>
+    <p>
+        Pick <b>one team from each group (A–L)</b> before the tournament starts.
+        Your selected teams will earn points based on their real match performance.
+    </p>
+
+    <hr>
+
+    <h3>Group Stage Scoring</h3>
+    <p>
+        During the group stage, your selected teams will earn:
+    </p>
+    <ul>
+        <li>Win → <b>+2 points</b></li>
+        <li>Draw → <b>+1 points</b></li>
+        <li>Loss → <b>0 points</b></li>
+    </ul>
+
+    <hr>
+
+    <h3>Knockout Stage Scoring</h3>
+    <p>
+        Once your team qualifies for playoffs:
+    </p>
+    <ul>
+        <li>Win in knockout → <b>+5 points</b></li>
+    </ul>
+
+    <hr>
+
+    <h3>Final Match Bonus</h3>
+    <p>
+        If your team wins the FINAL:
+    </p>
+    <ul>
+        <li>Final Victory → <b>+10 points</b></li>
+    </ul>
+
+    <hr>
+
+    <h3>Important Rules</h3>
+    <ul>
+        <li>You can pick <b>only one team per group</b></li>
+        <li>Picks are <b>locked before tournament starts</b></li>
+        <li>Points are calculated automatically after match results are updated</li>
+        <li>Leaderboard ranks players based on total points</li>
+    </ul>
+
+    <hr>
+
+    <h3></h3>Winning</h3>
+    <p>
+        The player with the <b>highest total points</b> at the end of the tournament wins.
+    </p>
+
+    
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit">I Understand → Go to Picks</button>
+    </form>
+
+
+    <p style="text-align:center; margin-top:20px; color:#777;">
+        ⚠️ Trash talk is allowed. Blaming luck is not.
+    </p>
+
+</div>
+
+{% endblock %}

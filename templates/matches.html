@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>Matches</h2>
+
+<div class="matches-grid">
+    {% for m in matches %}
+        <a href="/matches/{{ m.id }}" class="card-link">
+            <div class="card">
+                Match No {{ m.id }}<br><br>
+            <div class="match-row">
+
+                <div class="team">
+                    <img src="https://play.fifa.com/media/image/bracket_predictor/flags/world_cup_2026/{{ m.home_code }}.svg">
+                    {{ m.home_team }}
+                </div>
+            
+                <span class="vs">vs</span>
+            
+                <div class="team">
+                    <img src="https://play.fifa.com/media/image/bracket_predictor/flags/world_cup_2026/{{ m.away_code }}.svg">
+                    {{ m.away_team }}
+                </div>
+            
+            </div>
+                {{ m.date }} ({{ m.stage }})
+            </div>
+        </a>
+    {% endfor %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,120 @@
+[
+  {
+    "id": 100,
+    "stage": "R32",
+    "status": "scheduled",
+    "tournaments": [
+      {
+        "id": 100,
+        "venueName": "Los Angeles Stadium",
+        "date": "2026-06-28T00:00:00",
+        "homeSquadName": "Group A Runner-up",
+        "awaySquadName": "Group B Runner-up",
+        "homeScore": null,
+        "awayScore": null,
+        "winner": null,
+        "status": "scheduled"
+      },
+      {
+        "id": 101,
+        "venueName": "Boston Stadium",
+        "date": "2026-06-29T00:00:00",
+        "homeSquadName": "Group E Winner",
+        "awaySquadName": "3rd Place (A/B/C/D/F)",
+        "homeScore": null,
+        "awayScore": null,
+        "winner": null,
+        "status": "scheduled"
+      },
+      {
+        "id": 102,
+        "venueName": "Estadio Monterrey",
+        "date": "2026-06-29T00:00:00",
+        "homeSquadName": "Group F Winner",
+        "awaySquadName": "Group C Runner-up",
+        "homeScore": null,
+        "awayScore": null,
+        "winner": null,
+        "status": "scheduled"
+      },
+      {
+        "id": 103,
+        "venueName": "Houston Stadium",
+        "date": "2026-06-29T00:00:00",
+        "homeSquadName": "Group C Winner",
+        "awaySquadName": "Group F Runner-up",
+        "homeScore": null,
+        "awayScore": null,
+        "winner": null,
+        "status": "scheduled"
+      },
+      {
+        "id": 104,
+        "venueName": "New York New Jersey Stadium",
+        "date": "2026-06-30T00:00:00",
+        "homeSquadName": "Group I Winner",
+        "awaySquadName": "3rd Place (C/D/F/G/H)",
+        "homeScore": null,
+        "awayScore": null,
+        "winner": null,
+        "status": "scheduled"
+      },
+      {
+        "id": 105,
+        "venueName": "Dallas Stadium",
+        "date": "2026-06-30T00:00:00",
+        "homeSquadName": "Group E Runner-up",
+        "awaySquadName": "Group I Runner-up",
+        "homeScore": null,
+        "awayScore": null,
+        "winner": null,
+        "status": "scheduled"
+      },
+
+      {
+        "id": 120,
+        "venueName": "Dallas Stadium",
+        "date": "2026-07-14T00:00:00",
+        "homeSquadName": "Winner Match 97",
+        "awaySquadName": "Winner Match 98",
+        "homeScore": null,
+        "awayScore": null,
+        "winner": null,
+        "status": "completed"
+      },
+      {
+        "id": 121,
+        "venueName": "Atlanta Stadium",
+        "date": "2026-07-15T00:00:00",
+        "homeSquadName": "Winner Match 99",
+        "awaySquadName": "Winner Match 100",
+        "homeScore": null,
+        "awayScore": null,
+        "winner": null,
+        "status": "completed"
+      },
+      {
+        "id": 122,
+        "venueName": "Miami Stadium",
+        "date": "2026-07-18T00:00:00",
+        "homeSquadName": "Loser Match 101",
+        "awaySquadName": "Loser Match 102",
+        "homeScore": null,
+        "awayScore": null,
+        "winner": null,
+        "status": "completed"
+      },
+      {
+        "id": 123,
+        "venueName": "New York New Jersey Stadium",
+        "date": "2026-07-19T00:00:00",
+        "homeSquadName": "Winner Match 101",
+        "awaySquadName": "Winner Match 102",
+        "homeScore": null,
+        "awayScore": null,
+        "winner": null,
+        "status": "scheduled"
+      }
+    ]
+  }
+]

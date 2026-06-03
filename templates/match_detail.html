@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+
+
+<h2>{{ match.home_team }} vs {{ match.away_team }}</h2>
+<p>{{ match.date }} ({{ match.stage }})</p>
+
+<hr>
+
+<h3>💬 Banter</h3>
+
+<form method="POST">
+    {% csrf_token %}
+    <input type="text" name="text" placeholder="Say something..." required>
+    <button type="submit">Send</button>
+</form>
+
+<div id="comments"
+     hx-get="/matches/{{ match.id }}/"
+     hx-trigger="every 5s"
+     hx-swap="innerHTML">
+
+    {% include "_comments.html" %}
+
+</div>
+
+{% endblock %}

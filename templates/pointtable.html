@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="card">
+    <h3>Point table by Group</h3>
+
+    {% for g, teams in groups.items %}
+        <h4>Group {{ g }}</h4>
+
+        <table class="group-table">
+            <tr>
+                <th>Flag</th>
+                <th>Team</th>
+                <th>P</th>
+                <th>W</th>
+                <th>L</th>
+                <th>D</th>
+                <th>Pts</th>
+            </tr>
+
+            {% for t in teams %}
+                <tr>
+                    <td>
+                        <img src="https://play.fifa.com/media/image/bracket_predictor/flags/world_cup_2026/{{ t.team.code }}.svg" width="20px" alt="{{ t.team.name }}"/>
+                    </td>
+                    <td>{{ t.team.name }}</td>
+                    <td>{{ t.played }}</td>
+                    <td>{{ t.won }}</td>
+                    <td>{{ t.lost }}</td>
+                    <td>{{ t.draw }}</td>
+                    <td>{{ t.points }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+
+    {% endfor %}
+</div>
+
+<div class="card">
+    <h3>⚽ Recent Matches</h3>
+
+    <ul>
+        {% for m in matches %}
+            <li>
+                {{ m.Home_Team }} vs {{ m.Away_Team }}
+                → {{ m.Home_Score }} - {{ m.Away_Score }}
+                ({{ m.Stage }})
+            </li>
+
+        {% empty %}
+            <li>No match data uploaded yet</li>
+        {% endfor %}
+    </ul>
+</div>
+
+{% endblock %}
