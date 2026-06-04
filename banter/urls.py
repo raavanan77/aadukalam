@@ -12,5 +12,7 @@ urlpatterns = [
     path('yourpicks/', views.your_pickems, name="yourpickems"),
     path('leaderboard/', views.leaderboard_view, name='leaderboard'),
     path("matches/", views.matches_view),
-path("matches/<int:match_id>/", views.match_detail),
+    path("user/<int:user_id>/", views.user_pickems),
+    path("matches/<int:match_id>/", views.match_detail),
+    path("playoff/", views.bracket_view),
 ]

@@ -1,7 +1,7 @@
 from banter.models import Team
 
 groups = {
-    "A": ["Mexico", "South Africa", "South Korea", "Czechia"],
+    "A": ["Mexico", "South Africa", "Korea Republic", "Czechia"],
     "B": ["Canada", "Bosnia-Herzegovina", "Qatar", "Switzerland"],
     "C": ["Brazil", "Morocco", "Haiti", "Scotland"],
     "D": ["United States", "Paraguay", "Australia", "Türkiye"],
@@ -18,7 +18,7 @@ groups = {
 TEAM_CODES = {
     "Mexico": "MEX",
     "South Africa": "RSA",
-    "South Korea": "KOR",
+    "Korea Republic": "KOR",
     "Czechia": "CZE",
     "Canada": "CAN",
     "Bosnia-Herzegovina": "BIH",
@@ -78,12 +78,12 @@ import json
 from datetime import datetime
 from banter.models import Match
 
-with open("fifa.json") as f:
+with open("playoff.json") as f:
     data = json.load(f)
     for match in data:
         stage = match.get("stage")
         for t in match.get("tournaments", []):
-            match_id = t.get("id")
+            match_id = t.get("id") + 1
             date = t.get("date")
             date_obj = datetime.fromisoformat(date) if date else None
             Match.objects.update_or_create(

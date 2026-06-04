@@ -1,262 +1,11 @@
+{% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <title>FIFA Banter</title>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <style>
-        html, body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-            background: #e9ebee;
-        }
-        .card form {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-        }
-
-        .card input {
-            flex: 1;
-        }
-        .card {
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .card:hover {
-            background: #f0f0f0;
-        }
-
-        .group-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
-        
-        .group-table th,
-        .group-table td {
-            border: 1px solid #ccc;
-            padding: 5px;
-            text-align: center;
-        }
-        
-        .group-table th {
-            background: #3b5998;
-            color: white;
-        }
-        
-        .group-table td:first-child {
-            text-align: left;
-        }
-
-        .bottom-nav {
-            display: none;
-        }
-
-        /* ✅ Mobile only */
-        @media (max-width: 768px) {
-        
-            .bottom-nav {
-                display: flex;
-                position: fixed;
-                bottom: 0;
-                left: 0;
-                width: 100%;
-                background: #3b5998;
-                justify-content: space-around;
-                padding: 10px 0;
-                z-index: 1000;
-            }
-        
-            .bottom-nav a {
-                color: white;
-                text-decoration: none;
-                font-size: 14px;
-                text-align: center;
-            }
-        
-            /* ✅ hide sidebar on mobile */
-            .sidebar {
-                display: none;
-            }
-        
-            /* ✅ avoid content being hidden behind bar */
-            .content {
-                padding-bottom: 60px;
-            }
-        }
-        /* Default layout */
-        .layout {
-            display: flex;
-            min-height: 100vh;
-        }
-
-        /* Sidebar (desktop) */
-        .sidebar {
-            width: 200px;
-            background: #3b5998;
-            color: white;
-            min-height: 100vh;
-            padding: 15px;
-        }
-
-        .sidebar a {
-            display: block;
-            color: white;
-            text-decoration: none;
-            padding: 8px 0;
-        }
-
-        /* Content */
-        .content {
-            flex: 1;
-            padding: 15px;
-        }
-
-        /* Topbar (hidden on desktop) */
-        .topbar {
-            display: none;
-        }
-
-        /* ✅ Mobile styles */
-        @media (max-width: 768px) {
-        
-            .layout {
-                flex-direction: column;
-            }
-        
-            .topbar {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                background: #3b5998;
-                color: white;
-                padding: 10px;
-            }
-        
-            .menu-btn {
-                font-size: 20px;
-                cursor: pointer;
-            }
-        
-            /* Sidebar becomes hidden drawer */
-            .sidebar {
-                position: fixed;
-                top: 0;
-                left: -220px;
-                width: 200px;
-                height: 100%;
-                transition: 0.3s;
-                z-index: 1000;
-            }
-        
-            .sidebar.open {
-                left: 0;
-            }
-        
-            .content {
-                padding: 10px;
-            }
-        }
-        .container {
-            width: 90%;
-            max-width: 350px;
-            margin: 20px auto;
-            background: white;
-            border: 1px solid #ccc;
-            padding: 20px;
-        }
-        .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.logout {
-    text-decoration: none;
-    color: #3b5998;
-}
-        .sidebar h2 {
-            font-size: 18px;
-            margin-bottom: 20px;
-        }
-
-        .sidebar a:hover {
-            text-decoration: underline;
-        }
-
-        .card {
-            background: white;
-            padding: 15px;
-            border: 1px solid #ccc;
-            margin-bottom: 20px;
-        }
-        .matches-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 15px;
-}
-
-.card-link {
-    text-decoration: none;
-    color: inherit;
-}
-
-@media (max-width: 900px) {
-    .matches-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 500px) {
-    .matches-grid {
-        grid-template-columns: 1fr;
-    }
-}
-
-.comments {
-    list-style: none;
-    padding: 0;
-}
-
-.comments li {
-    margin: 5px 0;
-    padding: 8px;
-    background: #f5f5f5;
-    width: fit-content;
-}
-
-/* ✅ your messages → right */
-.comments li.mine {
-    margin-left: auto;
-    background: #d1e7ff;
-}
-
-.match-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
-    margin-bottom: 5px;
-}
-
-.team {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
-.team img {
-    width: 20px;
-}
-
-.vs {
-    font-weight: bold;
-}
-
-    </style>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
     <script>
         function toggleMenu() {
             document.getElementById("sidebar").classList.toggle("open");
@@ -266,15 +15,32 @@
           integrity="sha384-H5SrcfygHmAuTDZphMHqBJLc3FhssKjG7w/CeCpFReSfwBWDTKpkzPP8c+cLsK+V"
           crossorigin="anonymous">
     </script>
-
 </head>
 <body>
+
+<!-- ✅ NEW: Mobile Topbar for Hamburger Menu -->
+<div class="topbar">
+    <div class="menu-btn" onclick="toggleMenu()">
+        <!-- Hamburger Icon -->
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+    </div>
+    <div class="topbar-title">FIFA Banter</div>
+    <div style="width: 24px;"></div> <!-- Spacer to keep title centered -->
+</div>
 
 <div class="layout">
 
     <div class="sidebar" id="sidebar">
+        <!-- Optional Mobile Close Button inside Drawer -->
+        <div class="sidebar-close" onclick="toggleMenu()">✕ Close</div>
+        <h2>FIFA Banter</h2>
         <a href="/home">Home</a>
         <a href="/matches">Matches</a>
+        <a href="/playoff">Playoff</a>
         <a href="/pointtable">Point Table</a>
         <a href="/leaderboard">Leaderboard</a>
         <a href="/yourpicks">Your Pickems</a>
@@ -286,12 +52,81 @@
 
 </div>
 
+<!-- ✅ UPDATED: Responsive Bottom Navigation with Inline SVGs -->
 <div class="bottom-nav">
-    <a href="/home">Home</a>
-    <a href="/matches">Matches</a>
-    <a href="/pointtable">Point Table</a>
-    <a href="/leaderboard">Leaderboard</a>
-    <a href="/yourpicks">Your Pickems</a>
+    <a href="/home" class="nav-item">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+        <span class="nav-label">Home</span>
+    </a>
+    
+        <a href="/matches" class="nav-item">
+        <!-- Custom Player Kicking a Ball Icon -->
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <!-- Head -->
+            <circle cx="15" cy="5" r="1.5" fill="currentColor"></circle>
+            
+            <!-- Torso / Spine -->
+            <path d="M12 7c1 1 2.5 1.5 3 3"></path>
+            
+            <!-- Arms (Reaching out for balance) -->
+            <path d="M14 8c-1.5-1-3.5-1-4.5.5"></path>
+            <path d="M15.5 9.5c1 .5 2 1.5 2.5 2.5"></path>
+            
+            <!-- Supporting Leg (Bent backwards mid-air) -->
+            <path d="M12 7c-1 2.5-1 4.5-2 5.5s-2.5.5-3.5 0"></path>
+            
+            <!-- Kicking Leg (Extended straight towards the ball) -->
+            <path d="M14.5 9.5c-1 3-1.5 5.5.5 8s3.5 3.5 4.5 4"></path>
+            
+            <!-- The Football (Top left, spinning with action lines) -->
+            <circle cx="6" cy="6" r="2"></circle>
+            <path d="M3 8a4.5 4.5 0 0 1 1-3.5" stroke-width="1.5" stroke-dasharray="1 1"></path>
+            <path d="M8.5 4a4.5 4.5 0 0 1-1 3.5" stroke-width="1.5" stroke-dasharray="1 1"></path>
+        </svg>
+        <span class="nav-label">Matches</span>
+    </a>
+
+    
+    <a href="/playoff" class="nav-item">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path>
+            <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path>
+            <path d="M4 22h16"></path>
+            <path d="M10 14.66V17c0 .55-.45 1-1 1H4v2h16v-2h-5c-.55 0-1-.45-1-1v-2.34"></path>
+            <path d="M12 2a6 6 0 0 1 6 6v1c0 .22-.03.44-.08.65a5 5 0 0 1-11.84 0A4.95 4.95 0 0 1 6 8V7a6 6 0 0 1 6-5z"></path>
+        </svg>
+        <span class="nav-label">Playoff</span>
+    </a>
+    
+    <a href="/pointtable" class="nav-item">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3v18"></path>
+            <path d="M3 12h18"></path>
+            <rect x="3" y="3" width="18" height="18" rx="2"></rect>
+        </svg>
+        <span class="nav-label">Tables</span>
+    </a>
+    
+    <a href="/leaderboard" class="nav-item">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+            <circle cx="9" cy="7" r="4"></circle>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+        </svg>
+        <span class="nav-label">Rank</span>
+    </a>
+    
+    <a href="/yourpicks" class="nav-item">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 11 12 14 22 4"></polyline>
+            <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+        </svg>
+        <span class="nav-label">Picks</span>
+    </a>
 </div>
 
 </body>

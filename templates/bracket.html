@@ -1,0 +1,192 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>🏆 Playoff Bracket</h2>
+
+<div class="bracket-container">
+
+    <!-- LEFT SIDE (Left Bracket Tree) -->
+    <div class="bracket-side side-left">
+
+        <!-- Round of 32 -->
+        <div class="round r32">
+            <h3>Round of 32</h3>
+            <ul class="match-list">
+                {% for m in bracket.R32|slice:":8" %}
+                    <li class="match">
+                        <div class="team {% if m.home_winner %}winner{% endif %}">
+                            <span class="team-name">{{ m.home_team|default:"TBD" }}</span>
+                            <span class="score">{{ m.home_score|default:"-" }}</span>
+                        </div>
+                        <div class="team {% if m.away_winner %}winner{% endif %}">
+                            <span class="team-name">{{ m.away_team|default:"TBD" }}</span>
+                            <span class="score">{{ m.away_score|default:"-" }}</span>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <!-- Round of 16 -->
+        <div class="round r16">
+            <h3>Round of 16</h3>
+            <ul class="match-list">
+                {% for m in bracket.R16|slice:":4" %}
+                    <li class="match">
+                        <div class="team {% if m.home_winner %}winner{% endif %}">
+                            <span class="team-name">{{ m.home_team|default:"TBD" }}</span>
+                            <span class="score">{{ m.home_score|default:"-" }}</span>
+                        </div>
+                        <div class="team {% if m.away_winner %}winner{% endif %}">
+                            <span class="team-name">{{ m.away_team|default:"TBD" }}</span>
+                            <span class="score">{{ m.away_score|default:"-" }}</span>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <!-- Quarter Finals -->
+        <div class="round qf">
+            <h3>Quarterfinals</h3>
+            <ul class="match-list">
+                {% for m in bracket.QF|slice:":2" %}
+                    <li class="match">
+                        <div class="team {% if m.home_winner %}winner{% endif %}">
+                            <span class="team-name">{{ m.home_team|default:"TBD" }}</span>
+                            <span class="score">{{ m.home_score|default:"-" }}</span>
+                        </div>
+                        <div class="team {% if m.away_winner %}winner{% endif %}">
+                            <span class="team-name">{{ m.away_team|default:"TBD" }}</span>
+                            <span class="score">{{ m.away_score|default:"-" }}</span>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <!-- Semi Finals -->
+        <div class="round sf">
+            <h3>Semifinals</h3>
+            <ul class="match-list">
+                {% for m in bracket.SF|slice:":1" %}
+                    <li class="match">
+                        <div class="team {% if m.home_winner %}winner{% endif %}">
+                            <span class="team-name">{{ m.home_team|default:"TBD" }}</span>
+                            <span class="score">{{ m.home_score|default:"-" }}</span>
+                        </div>
+                        <div class="team {% if m.away_winner %}winner{% endif %}">
+                            <span class="team-name">{{ m.away_team|default:"TBD" }}</span>
+                            <span class="score">{{ m.away_score|default:"-" }}</span>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+    </div>
+
+    <!-- FINAL CENTER -->
+    <div class="final-center">
+        <h3>Grand Final</h3>
+        <div class="match final-match">
+            <div class="team {% if bracket.FINAL.home_winner %}winner{% endif %}">
+                <span class="team-name">{{ bracket.FINAL.home_team|default:"TBD" }}</span>
+                <span class="score">{{ bracket.FINAL.home_score|default:"-" }}</span>
+            </div>
+            <div class="team {% if bracket.FINAL.away_winner %}winner{% endif %}">
+                <span class="team-name">{{ bracket.FINAL.away_team|default:"TBD" }}</span>
+                <span class="score">{{ bracket.FINAL.away_score|default:"-" }}</span>
+            </div>
+        </div>
+        {% if bracket.CHAMPION %}
+            <div class="champion">
+                <h4>🏆 Champion</h4>
+                <p>{{ bracket.CHAMPION }}</p>
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- RIGHT SIDE (Right Bracket Tree reversed for layout logic) -->
+    <div class="bracket-side side-right">
+        <!-- Round of 32 -->
+        <div class="round r32">
+            <h3>Round of 32</h3>
+            <ul class="match-list">
+                {% for m in bracket.R32|slice:"8:" %}
+                    <li class="match">
+                        <div class="team {% if m.home_winner %}winner{% endif %}">
+                            <span class="team-name">{{ m.home_team|default:"TBD" }}</span>
+                            <span class="score">{{ m.home_score|default:"-" }}</span>
+                        </div>
+                        <div class="team {% if m.away_winner %}winner{% endif %}">
+                            <span class="team-name">{{ m.away_team|default:"TBD" }}</span>
+                            <span class="score">{{ m.away_score|default:"-" }}</span>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <!-- Round of 16 -->
+        <div class="round r16">
+            <h3>Round of 16</h3>
+            <ul class="match-list">
+                {% for m in bracket.R16|slice:"4:" %}
+                    <li class="match">
+                        <div class="team {% if m.home_winner %}winner{% endif %}">
+                            <span class="team-name">{{ m.home_team|default:"TBD" }}</span>
+                            <span class="score">{{ m.home_score|default:"-" }}</span>
+                        </div>
+                        <div class="team {% if m.away_winner %}winner{% endif %}">
+                            <span class="team-name">{{ m.away_team|default:"TBD" }}</span>
+                            <span class="score">{{ m.away_score|default:"-" }}</span>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <!-- Quarter Finals -->
+        <div class="round qf">
+            <h3>Quarterfinals</h3>
+            <ul class="match-list">
+                {% for m in bracket.QF|slice:"2:" %}
+                    <li class="match">
+                        <div class="team {% if m.home_winner %}winner{% endif %}">
+                            <span class="team-name">{{ m.home_team|default:"TBD" }}</span>
+                            <span class="score">{{ m.home_score|default:"-" }}</span>
+                        </div>
+                        <div class="team {% if m.away_winner %}winner{% endif %}">
+                            <span class="team-name">{{ m.away_team|default:"TBD" }}</span>
+                            <span class="score">{{ m.away_score|default:"-" }}</span>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <!-- Semi Finals -->
+        <div class="round sf">
+            <h3>Semifinals</h3>
+            <ul class="match-list">
+                {% for m in bracket.SF|slice:"1:" %}
+                    <li class="match">
+                        <div class="team {% if m.home_winner %}winner{% endif %}">
+                            <span class="team-name">{{ m.home_team|default:"TBD" }}</span>
+                            <span class="score">{{ m.home_score|default:"-" }}</span>
+                        </div>
+                        <div class="team {% if m.away_winner %}winner{% endif %}">
+                            <span class="team-name">{{ m.away_team|default:"TBD" }}</span>
+                            <span class="score">{{ m.away_score|default:"-" }}</span>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

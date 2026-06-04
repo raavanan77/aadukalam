@@ -12,6 +12,58 @@ import pandas as pd
 import os
 from datetime import datetime, timedelta
 
+# Globals
+TEAM_CODES = {
+    "Mexico": "MEX",
+    "South Africa": "RSA",
+    "Czechia": "CZE",
+    "Canada": "CAN",
+    "Bosnia-Herzegovina": "BIH",
+    "Qatar": "QAT",
+    "Switzerland": "SUI",
+    "Brazil": "BRA",
+    "Morocco": "MAR",
+    "Haiti": "HAI",
+    "Scotland": "SCO",
+    "USA": "USA",
+    "Paraguay": "PAR",
+    "Australia": "AUS",
+    "Türkiye": "TUR",
+    "Germany": "GER",
+    "Curacao": "CUW",
+    "Ivory Coast": "CIV",
+    "Ecuador": "ECU",
+    "Netherlands": "NED",
+    "Japan": "JPN",
+    "Sweden": "SWE",
+    "Tunisia": "TUN",
+    "Belgium": "BEL",
+    "Egypt": "EGY",
+    "IR Iran": "IRN",
+    "New Zealand": "NZL",
+    "Spain": "ESP",
+    "Cape Verde": "CPV",
+    "Saudi Arabia": "KSA",
+    "Uruguay": "URU",
+    "France": "FRA",
+    "Senegal": "SEN",
+    "Iraq": "IRQ",
+    "Norway": "NOR",
+    "Argentina": "ARG",
+    "Algeria": "ALG",
+    "Austria": "AUT",
+    "Jordan": "JOR",
+    "Portugal": "POR",
+    "Congo DR": "COD",
+    "Uzbekistan": "UZB",
+    "Colombia": "COL",
+    "England": "ENG",
+    "Croatia": "CRO",
+    "Ghana": "GHA",
+    "Panama": "PAN",
+    "Korea Republic":"KOR"
+}
+
 def calculate_points(user):
     matches = Match.objects.all()
     picks = Pickems.objects.get(user=user)
@@ -142,12 +194,15 @@ def leaderboard_view(request):
     for u in users:
         try:
             score = calculate_points(u)
-            data.append({"user": u.username, "points": score})
+            data.append({
+                "id": u.id,
+                "user": u.username,
+                "points": score
+            })
         except:
             continue
 
     data.sort(key=lambda x: x["points"], reverse=True)
-
     return render(request, "leaderboard.html", {"data": data})
 
 
@@ -243,57 +298,6 @@ def your_pickems(request):
 
 def matches_view(request):
     matches = Match.objects.all().order_by("id")
-    TEAM_CODES = {
-        "Mexico": "MEX",
-        "South Africa": "RSA",
-        "Czechia": "CZE",
-        "Canada": "CAN",
-        "Bosnia-Herzegovina": "BIH",
-        "Qatar": "QAT",
-        "Switzerland": "SUI",
-        "Brazil": "BRA",
-        "Morocco": "MAR",
-        "Haiti": "HAI",
-        "Scotland": "SCO",
-        "USA": "USA",
-        "Paraguay": "PAR",
-        "Australia": "AUS",
-        "Türkiye": "TUR",
-        "Germany": "GER",
-        "Curacao": "CUW",
-        "Ivory Coast": "CIV",
-        "Ecuador": "ECU",
-        "Netherlands": "NED",
-        "Japan": "JPN",
-        "Sweden": "SWE",
-        "Tunisia": "TUN",
-        "Belgium": "BEL",
-        "Egypt": "EGY",
-        "IR Iran": "IRN",
-        "New Zealand": "NZL",
-        "Spain": "ESP",
-        "Cape Verde": "CPV",
-        "Saudi Arabia": "KSA",
-        "Uruguay": "URU",
-        "France": "FRA",
-        "Senegal": "SEN",
-        "Iraq": "IRQ",
-        "Norway": "NOR",
-        "Argentina": "ARG",
-        "Algeria": "ALG",
-        "Austria": "AUT",
-        "Jordan": "JOR",
-        "Portugal": "POR",
-        "Congo DR": "COD",
-        "Uzbekistan": "UZB",
-        "Colombia": "COL",
-        "England": "ENG",
-        "Croatia": "CRO",
-        "Ghana": "GHA",
-        "Panama": "PAN",
-        "Korea Republic":"KOR"
-    }
-    
     for m in matches:
         m.home_code = TEAM_CODES.get(m.home_team, "UNK")
         m.away_code = TEAM_CODES.get(m.away_team, "UNK")
@@ -322,7 +326,73 @@ def match_detail(request, match_id):
             "comments": comments
         })
 
+    # ✅ collect user picks relevant to this match
+    picks_data = []
+
+    users = User.objects.all()
+
+    for u in users:
+        try:
+            p = Pickems.objects.get(user=u)
+        except Pickems.DoesNotExist:
+            continue
+
+        picked_team = None
+
+        # ✅ check if user picked one of the teams in THIS match
+        for team in [
+            p.group_A, p.group_B, p.group_C, p.group_D,
+            p.group_E, p.group_F, p.group_G, p.group_H,
+            p.group_I, p.group_J, p.group_K, p.group_L,
+        ]:
+            if team.name in [match.home_team, match.away_team]:
+                picked_team = team.name
+                break
+
+        if picked_team:
+            picks_data.append({
+                "user": u.username,
+                "team": picked_team
+            })
+
     return render(request, "match_detail.html", {
         "match": match,
-        "comments": comments
+        "comments": comments,
+        "picks_data": picks_data
+    })
+
+
+@login_required
+def user_pickems(request, user_id):
+    user = User.objects.get(id=user_id)
+
+    try:
+        picks = Pickems.objects.get(user=user)
+    except Pickems.DoesNotExist:
+        picks = None
+
+    total = 0
+    if picks:
+        total = calculate_points(user)
+
+    return render(request, "yourpicks.html", {
+        "picks": picks,
+        "total": total,
+        "view_user": user.username   # ✅ who we are viewing
+    })
+
+def bracket_view(request):
+    matches = Match.objects.all()
+
+    bracket = {
+        "R32": matches.filter(stage="KNOCKOUT-R32"),
+        "R16": matches.filter(stage="KNOCKOUT-R16"),
+        "QF": matches.filter(stage="Quater-Final"),
+        "SF": matches.filter(stage="Semi-Final"),
+        "BF" : matches.filter(stage="Bronze-Final"),
+        "FF": matches.filter(stage="Final"),
+    }
+
+    return render(request, "bracket.html", {
+        "bracket": bracket
     })

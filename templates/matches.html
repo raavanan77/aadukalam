@@ -6,24 +6,32 @@
 <div class="matches-grid">
     {% for m in matches %}
         <a href="/matches/{{ m.id }}" class="card-link">
-            <div class="card">
-                Match No {{ m.id }}<br><br>
-            <div class="match-row">
-
-                <div class="team">
-                    <img src="https://play.fifa.com/media/image/bracket_predictor/flags/world_cup_2026/{{ m.home_code }}.svg">
-                    {{ m.home_team }}
+            <div class="card match-overview-card">
+                <div class="card-header-meta">Match No {{ m.id }}</div>
+                
+                <div class="match-row-display">
+                    <!-- Home Team -->
+                    <div class="card-team home-side">
+                        <div class="flag-wrapper">
+                            <img class="card-flag" src="{% if m.home_code != 'UNK' %}https://play.fifa.com/media/image/bracket_predictor/flags/world_cup_2026/{{ m.home_code }}.svg{% else %}/static/WC.svg{% endif %}">
+                        </div>
+                        <span class="card-team-name">{{ m.home_team }}</span>
+                    </div>
+                
+                    <span class="vs-divider">vs</span>
+                
+                    <!-- Away Team -->
+                    <div class="card-team away-side">
+                        <div class="flag-wrapper">
+                            <img class="card-flag" src="{% if m.away_code != 'UNK' %}https://play.fifa.com/media/image/bracket_predictor/flags/world_cup_2026/{{ m.away_code }}.svg{% else %}/static/WC.svg{% endif %}">
+                        </div>
+                        <span class="card-team-name">{{ m.away_team }}</span>
+                    </div>
                 </div>
-            
-                <span class="vs">vs</span>
-            
-                <div class="team">
-                    <img src="https://play.fifa.com/media/image/bracket_predictor/flags/world_cup_2026/{{ m.away_code }}.svg">
-                    {{ m.away_team }}
+                
+                <div class="card-footer-meta">
+                    {{ m.date }} ({{ m.stage }})
                 </div>
-            
-            </div>
-                {{ m.date }} ({{ m.stage }})
             </div>
         </a>
     {% endfor %}

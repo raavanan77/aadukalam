@@ -2,23 +2,43 @@
 
 {% block content %}
 
-<h2>Leaderboard</h2>
+<div class="card leaderboard-wrapper-card">
+    <h2>🏆 Leaderboard</h2>
 
-<div class="card">
-    <table width="100%" class="group-table">
-        <tr>
-            <th>#</th>
-            <th>User</th>
-            <th>Points</th>
-        </tr>
-
-        {% for row in data %}
-        <tr>
-            <td>{{ forloop.counter }}</td>
-            <td>{{ row.user }}</td>
-            <td>{{ row.points }}</td>
-        </tr>
-        {% endfor %}
+    <table class="group-table sequential-data-table">
+        <thead>
+            <tr>
+                <th class="col-rank">#</th>
+                <th class="col-pts-summary">User</th>
+                <th class="col-pts-summary">Points</th>
+                <th class="col-pts-summary">View</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in data %}
+            <tr class="{% if row.user == request.user.username %}current-user-row{% endif %}">
+                <td class="col-rank">{{ forloop.counter }}</td>
+                <td class="col-rank">{{ row.user }}</td>
+                <td class="col-pts-summary val-pts">{{ row.points }}</td>
+                <td class="col-pts-summary val-pts">
+                    <a href="/user/{{ row.id }}/" class="leaderboard-user-link">
+                        <svg xmlns="http://w3.org" viewBox="0 0 24 24" width="5%" height="5%" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                          <!-- Outer Eye Shape (Eyelids) -->
+                          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                          <!-- Outer Iris Ring -->
+                          <circle cx="12" cy="12" r="3" />
+                          <!-- Pupil (Solid filled center) -->
+                          <circle cx="12" cy="12" r="1" fill="currentColor" />
+                        </svg>
+                    </a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="3" class="no-data-msg">No leaderboard data found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
     </table>
 </div>
 

@@ -2,56 +2,66 @@
 
 {% block content %}
 
-<div class="card">
-    <h3>Point table by Group</h3>
+<!-- Standings Card Container -->
+<div class="card standings-wrapper-card">
+    <h3>📊 Point Table by Group</h3>
 
     {% for g, teams in groups.items %}
-        <h4>Group {{ g }}</h4>
+        <div class="group-section">
+            <h4 class="group-title">Group {{ g }}</h4>
 
-        <table class="group-table">
-            <tr>
-                <th>Flag</th>
-                <th>Team</th>
-                <th>P</th>
-                <th>W</th>
-                <th>L</th>
-                <th>D</th>
-                <th>Pts</th>
-            </tr>
-
-            {% for t in teams %}
-                <tr>
-                    <td>
-                        <img src="https://play.fifa.com/media/image/bracket_predictor/flags/world_cup_2026/{{ t.team.code }}.svg" width="20px" alt="{{ t.team.name }}"/>
-                    </td>
-                    <td>{{ t.team.name }}</td>
-                    <td>{{ t.played }}</td>
-                    <td>{{ t.won }}</td>
-                    <td>{{ t.lost }}</td>
-                    <td>{{ t.draw }}</td>
-                    <td>{{ t.points }}</td>
-                </tr>
-            {% endfor %}
-        </table>
-
+            <table class="group-table">
+                <thead>
+                    <tr>
+                        <th class="col-flag">Flag</th>
+                        <th class="col-team">Team</th>
+                        <th class="col-stat">P</th>
+                        <th class="col-stat">W</th>
+                        <th class="col-stat">L</th>
+                        <th class="col-stat">D</th>
+                        <th class="col-stat col-pts">Pts</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for t in teams %}
+                        <tr>
+                            <td class="col-flag">
+                                <div class="table-flag-container">
+                                    <img src="https://play.fifa.com/media/image/bracket_predictor/flags/world_cup_2026/{{ t.team.code }}.svg" alt="{{ t.team.name }}"/>
+                                </div>
+                            </td>
+                            <td class="col-team">{{ t.team.name }}</td>
+                            <td class="col-stat">{{ t.played }}</td>
+                            <td class="col-stat">{{ t.won }}</td>
+                            <td class="col-stat">{{ t.lost }}</td>
+                            <td class="col-stat">{{ t.draw }}</td>
+                            <td class="col-stat col-pts-val">{{ t.points }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     {% endfor %}
 </div>
 
-<div class="card">
+<!-- Recent Matches Card Container -->
+<div class="card matches-wrapper-card">
     <h3>⚽ Recent Matches</h3>
-
-    <ul>
+    
+    <div class="recent-matches-list">
         {% for m in matches %}
-            <li>
-                {{ m.Home_Team }} vs {{ m.Away_Team }}
-                → {{ m.Home_Score }} - {{ m.Away_Score }}
-                ({{ m.Stage }})
-            </li>
-
+            <div class="recent-match-row">
+                <span class="match-stage-badge">{{ m.Stage }}</span>
+                <div class="match-teams-display">
+                    <span class="recent-team-name home">{{ m.Home_Team }}</span>
+                    <span class="recent-score-board">{{ m.Home_Score }} - {{ m.Away_Score }}</span>
+                    <span class="recent-team-name away">{{ m.Away_Team }}</span>
+                </div>
+            </div>
         {% empty %}
-            <li>No match data uploaded yet</li>
+            <div class="no-data-item">No match data uploaded yet</div>
         {% endfor %}
-    </ul>
+    </div>
 </div>
 
 {% endblock %}
