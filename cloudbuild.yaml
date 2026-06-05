@@ -1,0 +1,23 @@
+steps:
+  # 1. Build the Docker image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/$PROJECT_ID/aadukalam-app', '.']
+
+  # 2. Push the Docker image to your registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/$PROJECT_ID/aadukalam-app']
+
+  # 3. Run Django migrations safely using Cloud Run
+  - name: 'gcr.io/://google.com'
+    entrypoint: 'gcloud'
+    args:
+      - 'run'
+      - 'deploy'
+      - 'aadukalam-service'
+      - '--image=gcr.io/$PROJECT_ID/aadukalam-app'
+      - '--region=us-central1'
+      - '--port=8000'
+
+# ✅ Fixes the logging error from your previous steps
+options:
+  logging: CLOUD_LOGGING_ONLY

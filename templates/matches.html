@@ -13,7 +13,85 @@
                     <!-- Home Team -->
                     <div class="card-team home-side">
                         <div class="flag-wrapper">
-                            <img class="card-flag" src="{% if m.home_code != 'UNK' %}https://play.fifa.com/media/image/bracket_predictor/flags/world_cup_2026/{{ m.home_code }}.svg{% else %}/static/WC.svg{% endif %}">
+                            {% if m.home_code != 'UNK' %}
+                                <img class="card-flag" src="https://play.fifa.com/media/image/bracket_predictor/flags/world_cup_2026/{{ m.home_code }}.svg" alt="{{ m.home_team }}">
+                            {% else %}
+                                <svg xmlns="http://w3.org" viewBox="0 0 100 100" width="100%" height="100%">
+                                  <!-- Definitions for gradients and shadows -->
+                                  <defs>
+                                    <!-- Muted, metallic grey gradient for a trophy shape -->
+                                    <linearGradient id="trophyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                      <stop offset="0%" stop-color="#4a4a4a"/>
+                                      <stop offset="30%" stop-color="#737373"/>
+                                      <stop offset="50%" stop-color="#a3a3a3"/>
+                                      <stop offset="70%" stop-color="#5a5a5a"/>
+                                      <stop offset="100%" stop-color="#2d2d2d"/>
+                                    </linearGradient>
+                                
+                                    <!-- Subtle gradient for the TBD text -->
+                                    <linearGradient id="textGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                                      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.9"/>
+                                      <stop offset="100%" stop-color="#aaaaaa" stop-opacity="0.6"/>
+                                    </linearGradient>
+                                
+                                    <!-- Radial glow in the center background -->
+                                    <radialGradient id="centerGlow" cx="50%" cy="50%" r="50%">
+                                      <stop offset="0%" stop-color="#3a3a3a" stop-opacity="0.4"/>
+                                      <stop offset="100%" stop-color="#1e1e1e" stop-opacity="0"/>
+                                    </radialGradient>
+                                  </defs>
+                              
+                                  <!-- Background Circle Canvas (Matches standard UI flag dimensions) -->
+                                  <rect width="100%" height="100%" fill="none"/>
+                                  <circle cx="50" cy="50" r="46" fill="url(#centerGlow)"/>
+                              
+                                  <!-- Outer Dotted Progress Ring (Implies incomplete/future state) -->
+                                  <circle cx="50" cy="50" r="42" fill="none" stroke="#555555" stroke-width="1.5" stroke-dasharray="3 3"/>
+                              
+                                  <!-- Abstract Trophy Shape (Inspired by the World Cup Trophy silhouette) -->
+                                  <g id="world-cup-silhouette" opacity="0.25">
+                                    <!-- Base -->
+                                    <path d="M 38 82 Q 50 85 62 82 L 60 76 Q 50 78 40 76 Z" fill="url(#trophyGrad)"/>
+                                    <path d="M 41 75 Q 50 77 59 75 L 57 68 Q 50 70 43 68 Z" fill="url(#trophyGrad)"/>
+
+                                    <!-- Stem/Body (The stylized spiraling human shapes) -->
+                                    <path d="M 44 67 Q 38 52 46 42 Q 50 38 46 32 L 54 32 Q 50 38 54 42 Q 62 52 56 67 Z" fill="url(#trophyGrad)"/>
+
+                                    <!-- Top Globe -->
+                                    <circle cx="50" cy="26" r="10" fill="url(#trophyGrad)"/>
+
+                                    <!-- Decorative overlapping dynamic lines wrapped around the base of globe -->
+                                    <path d="M 41 30 Q 50 34 59 30" fill="none" stroke="#2d2d2d" stroke-width="1"/>
+                                    <path d="M 43 34 Q 50 38 57 34" fill="none" stroke="#2d2d2d" stroke-width="1"/>
+                                  </g>
+                              
+                                  <!-- Question Marks / Future UI Decals -->
+                                  <g stroke="#ffffff" stroke-opacity="0.15" stroke-width="1" fill="none">
+                                    <path d="M 22 28 Q 24 24 27 26 T 26 31"/>
+                                    <circle cx="26" cy="34" r="0.5" fill="#ffffff" fill-opacity="0.15"/>
+
+                                    <path d="M 78 28 Q 76 24 73 26 T 74 31"/>
+                                    <circle cx="74" cy="34" r="0.5" fill="#ffffff" fill-opacity="0.15"/>
+                                  </g>
+                              
+                                  <!-- Central "TBD" Typography Stack -->
+                                  <text x="50" y="52" 
+                                        font-family="system-ui, -apple-system, sans-serif" 
+                                        font-weight="800" 
+                                        font-size="14" 
+                                        fill="url(#textGrad)" 
+                                        text-anchor="middle" 
+                                        letter-spacing="1">TBD</text>
+
+                                  <text x="50" y="62" 
+                                        font-family="system-ui, -apple-system, sans-serif" 
+                                        font-weight="600" 
+                                        font-size="6" 
+                                        fill="#777777" 
+                                        text-anchor="middle" 
+                                        letter-spacing="0.5">TO BE DETERMINED</text>
+                                </svg>
+                            {% endif %}
                         </div>
                         <span class="card-team-name">{{ m.home_team }}</span>
                     </div>
@@ -23,7 +101,85 @@
                     <!-- Away Team -->
                     <div class="card-team away-side">
                         <div class="flag-wrapper">
-                            <img class="card-flag" src="{% if m.away_code != 'UNK' %}https://play.fifa.com/media/image/bracket_predictor/flags/world_cup_2026/{{ m.away_code }}.svg{% else %}/static/WC.svg{% endif %}">
+                            {% if m.away_code != 'UNK' %}
+                                <img class="card-flag" src="https://play.fifa.com/media/image/bracket_predictor/flags/world_cup_2026/{{ m.away_code }}.svg" alt="{{ m.away_team }}">
+                            {% else %}
+                                <svg xmlns="http://w3.org" viewBox="0 0 100 100" width="100%" height="100%">
+                                  <!-- Definitions for gradients and shadows -->
+                                  <defs>
+                                    <!-- Muted, metallic grey gradient for a trophy shape -->
+                                    <linearGradient id="trophyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                      <stop offset="0%" stop-color="#4a4a4a"/>
+                                      <stop offset="30%" stop-color="#737373"/>
+                                      <stop offset="50%" stop-color="#a3a3a3"/>
+                                      <stop offset="70%" stop-color="#5a5a5a"/>
+                                      <stop offset="100%" stop-color="#2d2d2d"/>
+                                    </linearGradient>
+                                
+                                    <!-- Subtle gradient for the TBD text -->
+                                    <linearGradient id="textGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                                      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.9"/>
+                                      <stop offset="100%" stop-color="#aaaaaa" stop-opacity="0.6"/>
+                                    </linearGradient>
+                                
+                                    <!-- Radial glow in the center background -->
+                                    <radialGradient id="centerGlow" cx="50%" cy="50%" r="50%">
+                                      <stop offset="0%" stop-color="#3a3a3a" stop-opacity="0.4"/>
+                                      <stop offset="100%" stop-color="#1e1e1e" stop-opacity="0"/>
+                                    </radialGradient>
+                                  </defs>
+                              
+                                  <!-- Background Circle Canvas (Matches standard UI flag dimensions) -->
+                                  <rect width="100%" height="100%" fill="none"/>
+                                  <circle cx="50" cy="50" r="46" fill="url(#centerGlow)"/>
+                              
+                                  <!-- Outer Dotted Progress Ring (Implies incomplete/future state) -->
+                                  <circle cx="50" cy="50" r="42" fill="none" stroke="#555555" stroke-width="1.5" stroke-dasharray="3 3"/>
+                              
+                                  <!-- Abstract Trophy Shape (Inspired by the World Cup Trophy silhouette) -->
+                                  <g id="world-cup-silhouette" opacity="0.25">
+                                    <!-- Base -->
+                                    <path d="M 38 82 Q 50 85 62 82 L 60 76 Q 50 78 40 76 Z" fill="url(#trophyGrad)"/>
+                                    <path d="M 41 75 Q 50 77 59 75 L 57 68 Q 50 70 43 68 Z" fill="url(#trophyGrad)"/>
+
+                                    <!-- Stem/Body (The stylized spiraling human shapes) -->
+                                    <path d="M 44 67 Q 38 52 46 42 Q 50 38 46 32 L 54 32 Q 50 38 54 42 Q 62 52 56 67 Z" fill="url(#trophyGrad)"/>
+
+                                    <!-- Top Globe -->
+                                    <circle cx="50" cy="26" r="10" fill="url(#trophyGrad)"/>
+
+                                    <!-- Decorative overlapping dynamic lines wrapped around the base of globe -->
+                                    <path d="M 41 30 Q 50 34 59 30" fill="none" stroke="#2d2d2d" stroke-width="1"/>
+                                    <path d="M 43 34 Q 50 38 57 34" fill="none" stroke="#2d2d2d" stroke-width="1"/>
+                                  </g>
+                              
+                                  <!-- Question Marks / Future UI Decals -->
+                                  <g stroke="#ffffff" stroke-opacity="0.15" stroke-width="1" fill="none">
+                                    <path d="M 22 28 Q 24 24 27 26 T 26 31"/>
+                                    <circle cx="26" cy="34" r="0.5" fill="#ffffff" fill-opacity="0.15"/>
+
+                                    <path d="M 78 28 Q 76 24 73 26 T 74 31"/>
+                                    <circle cx="74" cy="34" r="0.5" fill="#ffffff" fill-opacity="0.15"/>
+                                  </g>
+                              
+                                  <!-- Central "TBD" Typography Stack -->
+                                  <text x="50" y="52" 
+                                        font-family="system-ui, -apple-system, sans-serif" 
+                                        font-weight="800" 
+                                        font-size="14" 
+                                        fill="url(#textGrad)" 
+                                        text-anchor="middle" 
+                                        letter-spacing="1">TBD</text>
+
+                                  <text x="50" y="62" 
+                                        font-family="system-ui, -apple-system, sans-serif" 
+                                        font-weight="600" 
+                                        font-size="6" 
+                                        fill="#777777" 
+                                        text-anchor="middle" 
+                                        letter-spacing="0.5">TO BE DETERMINED</text>
+                                </svg>
+                            {% endif %}
                         </div>
                         <span class="card-team-name">{{ m.away_team }}</span>
                     </div>
