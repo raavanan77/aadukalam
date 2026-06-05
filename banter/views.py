@@ -64,6 +64,10 @@ TEAM_CODES = {
     "Korea Republic":"KOR"
 }
 
+def walkthrough_view(request):
+    return render(request, "onboard.html")
+
+
 def calculate_points(user):
     matches = Match.objects.all()
     picks = Pickems.objects.get(user=user)
@@ -84,26 +88,23 @@ def calculate_points(user):
             if team.name not in [m.home_team, m.away_team]:
                 continue
 
-            # ✅ GROUP scoring
             if m.stage == "GROUP":
                 if m.home_score == m.away_score:
-                    total += 1.5
+                    total += 1
                 else:
                     winner = m.home_team if m.home_score > m.away_score else m.away_team
                     if winner == team.name:
-                        total += 3
+                        total += 2
 
-            # ✅ KO scoring
             elif m.stage == "KO":
                 if (m.home_score > m.away_score and m.home_team == team.name) or \
                    (m.away_score > m.home_score and m.away_team == team.name):
                     total += 5
 
-            # ✅ FINAL
             elif m.stage == "FINAL":
                 if (m.home_score > m.away_score and m.home_team == team.name) or \
                    (m.away_score > m.home_score and m.away_team == team.name):
-                    total += 17.5
+                    total += 10
 
     return total
 
@@ -114,33 +115,40 @@ def user_login(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('/home')
+            return redirect('/')
         else:
             messages.error(request, 'Invalid username or password')
     return render(request, 'login.html')
 
 def signup_view(request):
     if request.method == "POST":
-        if request.POST["password1"] == request.POST["password2"]:
-            user = User.objects.create_user(
-                username=request.POST["username"],
-                email=request.POST["email"],
-                password=request.POST["password1"]
-            )
+        username = request.POST.get("username")
+        email = request.POST.get("email")
+        password = request.POST.get("password")
 
-            login(request, user)
-            return redirect("/rules")
+        if not email:
+            messages.error(request, "Email is required")
+            return redirect("/signup")
+
+        if User.objects.filter(username=username).exists():
+            messages.error(request, "Username already exists")
+            return redirect("/signup")
+
+        if User.objects.filter(email=email).exists():
+            messages.error(request, "Email already exists")
+            return redirect("/signup")
+
+        user = User.objects.create_user(
+            username=username,
+            email=email,
+            password=password
+        )
+
+        login(request, user)
+        return redirect("/rules")
 
     return render(request, "signup.html")
 
-
-@login_required
-def pickems_view(request):
-    if not request.user.profile.rules_seen:
-        return redirect("/rules")
-
-    # normal logic here
-    return render(request, "pickems.html")
 
 @login_required
 def game_rules(request):
@@ -155,6 +163,9 @@ def user_logout(request):
 
 @login_required
 def pickems_view(request):
+    if Pickems.objects.filter(user=request.user).exists():
+        return redirect("/")
+
     teams = Team.objects.all().order_by("group")
 
     grouped = defaultdict(list)
@@ -162,6 +173,10 @@ def pickems_view(request):
         grouped[t.group].append(t)
 
     if request.method == "POST":
+        
+        if Pickems.objects.filter(user=request.user).exists():
+                return redirect("/")
+
         data = request.POST
 
         Pickems.objects.update_or_create(
@@ -182,7 +197,7 @@ def pickems_view(request):
             }
         )
 
-        return redirect("/home")
+        return redirect("/")
 
     return render(request, "pickems.html", {"groups": dict(grouped)})
 
@@ -320,13 +335,11 @@ def match_detail(request, match_id):
 
     comments = Comment.objects.filter(match=match).order_by("-created_at")
 
-    # ✅ HTMX request → return ONLY comments
     if request.headers.get("HX-Request"):
         return render(request, "_comments.html", {
             "comments": comments
         })
 
-    # ✅ collect user picks relevant to this match
     picks_data = []
 
     users = User.objects.all()
@@ -339,7 +352,6 @@ def match_detail(request, match_id):
 
         picked_team = None
 
-        # ✅ check if user picked one of the teams in THIS match
         for team in [
             p.group_A, p.group_B, p.group_C, p.group_D,
             p.group_E, p.group_F, p.group_G, p.group_H,

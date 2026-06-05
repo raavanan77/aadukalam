@@ -2,10 +2,65 @@
 
 {% block content %}
 
-<h2>Game Rules ⚽</h2>
+<h2>விளையாட்டு விதிகள் / Game Rules ⚽</h2>
 
-<div style="font-size: 14px; line-height: 1.6; color: #333;">
+<div style="font-size: 14px; line-height: 1.6; color: var(--text-main);">
 
+    <!-- TAMIL VERSION START -->
+    <div class="tamil-rules" style="background-color: rgba(255,255,255,0.05); padding: 15px; border-radius: 8px; margin-bottom: 30px; border-left: 4px solid var(--primary-color, #007bff);">
+        <h3>நோக்கம் (Objective)</h3>
+        <p>
+            தொடர் தொடங்குவதற்கு முன், <b>ஒவ்வொரு பிரிவிலிருந்தும் (A-L குழுக்கள்) ஒரு அணியை மட்டும்</b> தேர்ந்தெடுக்கவும். 
+            நீங்கள் தேர்ந்தெடுக்கும் அணிகள் அவற்றின் உண்மையான போட்டித் திறனின் அடிப்படையில் புள்ளிகளைப் பெறும்.
+        </p>
+
+        <hr>
+
+        <h3>குழு சுற்று புள்ளிகள் (Group Stage Scoring)</h3>
+        <p>குழு சுற்றின் போது, நீங்கள் தேர்ந்தெடுத்த அணிகள் பெறும் புள்ளிகள்:</p>
+        <ul>
+            <li>வெற்றி (Win) → <b>+2 புள்ளிகள்</b></li>
+            <li>சமநிலை (Draw) → <b>+1 புள்ளி</b></li>
+            <li>தோல்வி (Loss) → <b>0 புள்ளிகள்</b></li>
+        </ul>
+
+        <hr>
+
+        <h3>நாக் அவுட் சுற்று புள்ளிகள் (Knockout Stage Scoring)</h3>
+        <p>உங்கள் அணி தகுதிச் சுற்றுக்கு (Playoffs) முன்னேறிய பிறகு:</p>
+        <ul>
+            <li>நாக் அவுட் சுற்றில் வெற்றி → <b>+5 புள்ளிகள்</b></li>
+        </ul>
+
+        <hr>
+
+        <h3>இறுதிப் போட்டி போனஸ் (Final Match Bonus)</h3>
+        <p>நீங்கள் தேர்ந்தெடுத்த அணி இறுதிப் போட்டியில் வெற்றி பெற்றால்:</p>
+        <ul>
+            <li>இறுதிப் போட்டி வெற்றி → <b>+10 புள்ளிகள்</b></li>
+        </ul>
+
+        <hr>
+
+        <h3>முக்கியமான விதிகள் (Important Rules)</h3>
+        <ul>
+            <li>ஒரு குழுவிற்கு <b>ஒரு அணியை மட்டுமே</b> நீங்கள் தேர்ந்தெடுக்க முடியும்.</li>
+            <li>தொடர் தொடங்குவதற்கு முன்பே தேர்வுகள் <b>லாக் (Locked) செய்யப்படும்</b>.</li>
+            <li>போட்டி முடிவுகள் புதுப்பிக்கப்பட்டவுடன் புள்ளிகள் தானாகவே கணக்கிடப்படும்.</li>
+            <li>மொத்த புள்ளிகளின் அடிப்படையில் லீடர்போர்டு (Leaderboard) வீரர்களை வரிசைப்படுத்தும்.</li>
+        </ul>
+
+        <hr>
+
+        <h3>வெற்றியாளர் (Winning)</h3>
+        <p>
+            தொடரின் முடிவில் <b>அதிக மொத்த புள்ளிகளைப் பெறும்</b> வீரர் வெற்றி பெறுவார்.
+        </p>
+    </div>
+    <!-- TAMIL VERSION END -->
+    <h2>Rules in English</h2>
+    <div class="tamil-rules" style="background-color: rgba(255,255,255,0.05); padding: 15px; border-radius: 8px; margin-bottom: 30px; border-left: 4px solid var(--primary-color, #007bff);">
+    <!-- ENGLISH VERSION START -->
     <h3>Objective</h3>
     <p>
         Pick <b>one team from each group (A–L)</b> before the tournament starts.
@@ -56,21 +111,24 @@
 
     <hr>
 
-    <h3></h3>Winning</h3>
+    <h3>Winning</h3>
     <p>
         The player with the <b>highest total points</b> at the end of the tournament wins.
     </p>
+    <!-- ENGLISH VERSION END -->
+</div>
 
     
-    <form method="POST">
+    <form method="POST" style="margin-top: 30px;">
         {% csrf_token %}
-        <button type="submit">I Understand → Go to Picks</button>
+        <button type="submit">I Understand → Go to Picks / எனக்குப் புரிகிறது → தேர்விற்குச் செல்லவும்</button>
     </form>
 
 
-    <p style="text-align:center; margin-top:20px; color:#777;">
-        ⚠️ Trash talk is allowed. Blaming luck is not.
+    <p style="text-align:center; margin-top:20px; color:#777; font-style: italic;">
+        ⚠️ Trash talk is allowed. Blaming luck is not. / வம்பு பேசலாம், ஆனால் அதிர்ஷ்டத்தை குறை சொல்லக் கூடாது.
     </p>
+
 
 </div>
 

@@ -25,7 +25,12 @@ SECRET_KEY = 'django-insecure-9pgog-@g9lrzlml^hfjzhnaczd@98&j5z3_te7fc%2_gbjmlh5
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+LOGIN_URL = "/login/"
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://banter-756194223036.asia-south1.run.app"
+]
+ALLOWED_HOSTS = ["https://banter-756194223036.asia-south1.run.app/", "127.0.0.1"]
 
 # Application definition
 
@@ -47,6 +52,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "banter.middleware.PickLockMiddleware",
+    "banter.middleware.AuthSafetyMiddleware",
 ]
 
 ROOT_URLCONF = 'app.urls'

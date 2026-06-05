@@ -189,4 +189,19 @@
 
 </div>
 
+<!-- FINAL CENTER -->
+    <div class="final-center">
+        <h3>Bronze Final - Third Place</h3>
+        <div class="match final-match">
+            <div class="team {% if bracket.BF.home_winner %}winner{% endif %}">
+                <span class="team-name">{{ bracket.FINAL.home_team|default:"TBD" }}</span>
+                <span class="score">{{ bracket.FINAL.home_score|default:"-" }}</span>
+            </div>
+            <div class="team {% if bracket.BF.away_winner %}winner{% endif %}">
+                <span class="team-name">{{ bracket.FINAL.away_team|default:"TBD" }}</span>
+                <span class="score">{{ bracket.FINAL.away_score|default:"-" }}</span>
+            </div>
+        </div>
+    </div>
+
 {% endblock %}

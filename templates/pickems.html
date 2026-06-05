@@ -82,7 +82,7 @@
 
     .group-box {
         flex: 1 1 calc(33.33% - 15px); /* 3 per row */
-        background: white;
+        background: var(--bg-main);
         border: 1px solid #ccc;
         padding: 10px;
         box-sizing: border-box;
@@ -94,33 +94,34 @@
         gap: 10px;
         margin: 6px 0;
     }
-
+    
     .team-row img {
         width: 30px;
         height: auto;
     }
-
+    
     .team-btn {
         flex: 1;
         padding: 6px;
         border: 1px solid #ccc;
-        background: #f5f5f5;
+        background: var(--bg-card);
         cursor: pointer;
+        color: var(--text-main);
         text-align: left;
     }
 
     .team-btn:hover {
-        background: #e0e0e0;
+        background: var(--text-winner);
     }
 
     .team-btn.selected {
-        background: #3b5998;
+        background: var(--text-winner);
         color: white;
     }
 
     .selected {
         background: #3b5998;
-        color: white;
+        color: var(--text-main);
         border-color: #3b5998;
     }
 
